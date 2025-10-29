@@ -7,6 +7,9 @@ export default function Home() {
   const [patients, setPatients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [activity, setActivity] = useState<
+    { name: string; recipient: string; timestamp: string }[]
+  >([]);
 
   useEffect(() => {
     const fetchPatients = async () => {
@@ -24,6 +27,15 @@ export default function Home() {
     fetchPatients();
   }, []);
 
+  const handleShare = (name: string) => {
+    const recipient = ["Dr. Lee", "Dr. Patel", "Dr. Johnson", "Clinic A"][Math.floor(Math.random() * 4)];
+    const timestamp = new Date().toLocaleTimeString();
+    setActivity((prev) => [
+      { name, recipient, timestamp },
+      ...prev,
+    ]);
+  };
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-100 text-gray-800">
       {/* Hero Section */}
@@ -32,9 +44,8 @@ export default function Home() {
           MyCareLinker
         </h1>
         <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-          Building bridges between healthcare providers —
-          <br className="hidden md:block" />
-          securely, seamlessly, and centered around the patient.
+          Building bridges between healthcare providers — securely, seamlessly,
+          and centered around the patient.
         </p>
         <div className="mt-8">
           <button className="px-6 py-3 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700 shadow-md transition">
@@ -72,7 +83,7 @@ export default function Home() {
           Live Demo: Patient Data Exchange
         </h2>
         <p className="text-gray-600 text-center mb-6">
-          Here’s a simulated example of providers retrieving shared patient data securely.
+          A simulated “Venmo for health records” — providers securely share patient data in real time.
         </p>
 
         {loading && <p className="text-gray-500 text-center">Loading patients...</p>}
@@ -88,7 +99,8 @@ export default function Home() {
               const p = item.resource;
               const name =
                 p?.name && Array.isArray(p.name) && p.name.length > 0
-                  ? `${(p.name[0].given || []).join(" ")} ${p.name[0].family || ""}`.trim()
+                  ? p.name[0].text ||
+                    `${(p.name[0].given || []).join(" ")} ${p.name[0].family || ""}`.trim()
                   : "(Unnamed Patient)";
               const birthDate = p.birthDate || "N/A";
               const id = p.id || `patient-${index + 1}`;
@@ -101,13 +113,33 @@ export default function Home() {
                   <h3 className="text-lg font-semibold text-blue-800 mb-1">{name}</h3>
                   <p className="text-gray-600 text-sm mb-1">DOB: {birthDate}</p>
                   <p className="text-gray-500 text-xs mb-3">ID: {id}</p>
-                  <button className="mt-1 px-3 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition">
+                  <button
+                    onClick={() => handleShare(name)}
+                    className="mt-1 px-3 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition"
+                  >
                     Share Record
                   </button>
                 </div>
               );
             })}
           </div>
+        )}
+      </section>
+
+      {/* Activity Feed */}
+      <section className="bg-gradient-to-r from-blue-100 to-blue-50 rounded-2xl shadow-md p-8 max-w-4xl mx-4 mb-8 border border-blue-200 w-full">
+        <h2 className="text-3xl font-semibold mb-4 text-blue-700 text-center">Activity Feed</h2>
+        {activity.length === 0 ? (
+          <p className="text-gray-500 text-center">No sharing activity yet. Try sharing a record above!</p>
+        ) : (
+          <ul className="space-y-3 text-gray-700">
+            {activity.map((a, i) => (
+              <li key={i} className="bg-white border border-blue-100 p-4 rounded-xl shadow-sm">
+                <span className="font-semibold text-blue-800">{a.name}</span> shared their record with{" "}
+                <span className="text-blue-600">{a.recipient}</span> at {a.timestamp}.
+              </li>
+            ))}
+          </ul>
         )}
       </section>
 
