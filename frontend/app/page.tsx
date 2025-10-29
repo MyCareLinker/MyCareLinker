@@ -25,48 +25,55 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-center p-8 space-y-10 bg-gray-50 min-h-screen text-center">
-      {/* Header / Intro */}
-      <section className="max-w-2xl">
-        <h1 className="text-5xl font-bold mb-4 text-blue-600 tracking-tight">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-100 text-gray-800">
+      {/* Hero Section */}
+      <section className="text-center py-16 px-6 max-w-3xl">
+        <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-blue-700 tracking-tight drop-shadow-sm">
           MyCareLinker
         </h1>
-        <p className="text-lg text-gray-700 leading-relaxed">
-          Bridging the gap between healthcare providers — securely, seamlessly,
-          and centered around the patient.
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+          Building bridges between healthcare providers —
+          <br className="hidden md:block" />
+          securely, seamlessly, and centered around the patient.
         </p>
+        <div className="mt-8">
+          <button className="px-6 py-3 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700 shadow-md transition">
+            Learn More
+          </button>
+        </div>
       </section>
 
-      {/* Why Section */}
-      <section className="max-w-3xl text-left bg-white rounded-2xl shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-2 text-gray-800">
-          Why We Built This
-        </h2>
-        <p className="text-gray-600 leading-relaxed">
-          Every day, patients see multiple providers who don’t share the same systems.
-          Records get scattered, duplicated, or lost — slowing care and risking errors.
+      {/* Problem & Solution */}
+      <section className="bg-white rounded-2xl shadow-lg p-8 max-w-4xl mx-4 mb-8 border border-blue-100">
+        <h2 className="text-3xl font-semibold mb-4 text-blue-700">Why We Built This</h2>
+        <p className="text-gray-700 leading-relaxed text-lg">
+          Healthcare data is fragmented. Every provider uses different systems —
+          leaving patient records scattered, duplicated, or lost.
           <br />
           <br />
           MyCareLinker is our proof of concept showing how FHIR standards can make secure,
-          real-time data exchange possible across organizations.
+          real-time data exchange possible across organizations — with the patient in control.
         </p>
       </section>
 
       {/* How It Works */}
-      <section className="max-w-3xl text-left bg-white rounded-2xl shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-2 text-gray-800">How It Works</h2>
-        <ul className="list-disc ml-6 text-gray-600 space-y-2">
+      <section className="bg-gradient-to-r from-blue-100 to-blue-50 rounded-2xl shadow-md p-8 max-w-4xl mx-4 mb-8 border border-blue-200">
+        <h2 className="text-3xl font-semibold mb-4 text-blue-700">How It Works</h2>
+        <ul className="list-disc ml-6 text-gray-700 text-lg space-y-2">
           <li>Our backend speaks the FHIR protocol to handle health data securely.</li>
-          <li>Providers can view, share, and update patient info in one place.</li>
-          <li>Patients remain in control of who can see their data.</li>
+          <li>Providers can view, share, and update patient information in one place.</li>
+          <li>Patients remain in control of who can access their data.</li>
         </ul>
       </section>
 
-      {/* Live Demo Section */}
-      <section className="max-w-3xl text-left bg-white rounded-2xl shadow-md p-6 w-full">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800 text-center">
-          See It in Action
+      {/* Live Demo */}
+      <section className="bg-white rounded-2xl shadow-lg p-8 max-w-5xl mx-4 mb-8 border border-blue-100 w-full">
+        <h2 className="text-3xl font-semibold mb-4 text-blue-700 text-center">
+          Live Demo: Patient Data Exchange
         </h2>
+        <p className="text-gray-600 text-center mb-6">
+          Here’s a simulated example of providers retrieving shared patient data securely.
+        </p>
 
         {loading && <p className="text-gray-500 text-center">Loading patients...</p>}
         {error && <p className="text-red-500 text-center">{error}</p>}
@@ -76,24 +83,25 @@ export default function Home() {
         )}
 
         {!loading && patients.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-            {patients.map((item: any) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+            {patients.map((item: any, index: number) => {
               const p = item.resource;
-              const name = p.name
-                ? `${p.name[0]?.given?.join(" ")} ${p.name[0]?.family || ""}`
-                : "Unknown Patient";
+              const name =
+                p?.name && Array.isArray(p.name) && p.name.length > 0
+                  ? `${(p.name[0].given || []).join(" ")} ${p.name[0].family || ""}`.trim()
+                  : "(Unnamed Patient)";
               const birthDate = p.birthDate || "N/A";
-              const id = p.id || "—";
+              const id = p.id || `patient-${index + 1}`;
 
               return (
                 <div
                   key={id}
-                  className="border border-gray-200 rounded-xl p-4 shadow-sm bg-gray-50 hover:shadow-md transition"
+                  className="border border-blue-100 rounded-xl p-5 shadow-sm bg-gradient-to-br from-white to-blue-50 hover:shadow-md transition transform hover:-translate-y-1"
                 >
-                  <h3 className="text-lg font-semibold text-gray-800 mb-1">{name}</h3>
+                  <h3 className="text-lg font-semibold text-blue-800 mb-1">{name}</h3>
                   <p className="text-gray-600 text-sm mb-1">DOB: {birthDate}</p>
-                  <p className="text-gray-500 text-xs">ID: {id}</p>
-                  <button className="mt-3 px-3 py-1 bg-blue-500 text-white rounded-md text-sm hover:bg-blue-600 transition">
+                  <p className="text-gray-500 text-xs mb-3">ID: {id}</p>
+                  <button className="mt-1 px-3 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition">
                     Share Record
                   </button>
                 </div>
@@ -103,18 +111,23 @@ export default function Home() {
         )}
       </section>
 
-      {/* What's Next */}
-      <section className="max-w-3xl text-left bg-white rounded-2xl shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-2 text-gray-800">What’s Next</h2>
-        <p className="text-gray-600 leading-relaxed">
-          This is just the start. Our next milestone: connecting real hospital systems
+      {/* Vision */}
+      <section className="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl shadow-lg p-8 max-w-4xl mx-4 mb-12">
+        <h2 className="text-3xl font-semibold mb-4">What’s Next</h2>
+        <p className="leading-relaxed text-lg text-blue-50">
+          This is just the start. Our next milestone is connecting real hospital systems
           through secure APIs, with full HIPAA compliance and patient consent flows.
           <br />
           <br />
-          The goal is simple — empower every provider and patient to share health data
-          as easily as we share messages.
+          The vision is simple: a world where healthcare teams share information
+          as easily as we share messages — with patients at the center of it all.
         </p>
       </section>
+
+      {/* Footer */}
+      <footer className="text-sm text-gray-500 py-6">
+        © {new Date().getFullYear()} MyCareLinker. Built with ❤️ to connect care.
+      </footer>
     </main>
   );
 }
