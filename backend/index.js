@@ -1,33 +1,25 @@
 import express from "express";
-import axios from "axios";
 import cors from "cors";
 import dotenv from "dotenv";
+import mockPatients from "./mockPatients.json" assert { type: "json" };
 
 dotenv.config();
 const app = express();
-app.use(cors());
+
+// Enable CORS for your frontend domains
+app.use(cors({
+  origin: ["https://mycarelinker.vercel.app", "https://www.mycarelinker.com"]
+}));
+
 app.use(express.json());
 
 // test route
 app.get("/", (req, res) => res.send("MyCareLinker backend is running!"));
 
-// fetch sample patient data from HAPI FHIR
-app.get("/patients", async (req, res) => {
-  try {
-    const response = await axios.get("https://hapi.fhir.org/baseR4/Patient?_count=5");
-    res.json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+// /patients route returns mock data
+app.get("/patients", (req, res) => {
+  res.json({ entry: mockPatients.map(p => ({ resource: p })) });
 });
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-import cors from "cors";
-
-// Allow requests from your Vercel domain
-app.use(cors({
-  origin: ["https://mycarelinker.vercel.app", "https://www.mycarelinker.com"]
-}));
-
