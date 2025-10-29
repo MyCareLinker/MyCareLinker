@@ -23,3 +23,11 @@ app.get("/patients", async (req, res) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+import cors from "cors";
+
+// Allow requests from your Vercel domain
+app.use(cors({
+  origin: ["https://mycarelinker.vercel.app", "https://www.mycarelinker.com"]
+}));
+
