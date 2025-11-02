@@ -1,128 +1,57 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Home() {
   const [patients, setPatients] = useState<any[]>([]);
-  const [role, setRole] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch patients
   useEffect(() => {
-    if (!role) return;
-    setLoading(true);
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/patients`)
-      .then((res) => {
-        const entries = res.data.entry || [];
-        setPatients(entries.map((e: any) => e.resource));
-      })
-      .catch((err) => console.error("Error fetching patients:", err))
-      .finally(() => setLoading(false));
-  }, [role]);
-
-  // Simulate role-based filtering
-  const getVisiblePatients = () => {
-    if (role === "Provider A") return patients.slice(0, 2);
-    if (role === "Provider B") return patients.slice(2, 4);
-    if (role === "Patient") return patients.slice(0, 1);
-    return [];
-  };
+    const fetchPatients = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/patients`
+        );
+        setPatients(response.data.entry || []);
+      } catch (error) {
+        console.error("Error fetching patients:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPatients();
+  }, []);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 text-gray-900 flex flex-col items-center justify-start px-6 py-10">
-      {/* Header */}
-      <h1 className="text-5xl font-extrabold text-blue-700 mb-2">MyCareLinker</h1>
-      <p className="text-gray-600 mb-8 text-center max-w-2xl">
-        Connecting healthcare providers through secure, patient-centered data exchange.
-      </p>
+    <main className="min-h-screen bg-gray-50 text-gray-900">
+      {/* Hero Section */}
+      <section className="text-center py-24 px-6 bg-gradient-to-b from-blue-100 via-white to-gray-50">
+        <h1 className="text-5xl font-bold mb-6 text-blue-700">MyCareLinker</h1>
+        <p className="text-xl max-w-2xl mx-auto leading-relaxed text-gray-700">
+          Bridging the gap between healthcare providers. Securely. Seamlessly. 
+          Think of it like <strong>Venmo — but for patient records.</strong>
+        </p>
+        <a
+          href="#story"
+          className="mt-10 inline-block bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md hover:bg-blue-800 transition"
+        >
+          Learn How It Works ↓
+        </a>
+      </section>
 
-      {/* Step 1: Role selection */}
-      {!role ? (
-        <div className="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full">
-          <h2 className="text-2xl font-semibold mb-4 text-blue-600">Demo Login</h2>
-          <p className="text-gray-500 mb-6">Select your role to see how data sharing works.</p>
-
-          <div className="flex flex-col gap-3">
-            {["Provider A", "Provider B", "Patient", "Admin"].map((r) => (
-              <button
-                key={r}
-                onClick={() => setRole(r)}
-                className="bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl transition font-medium"
-              >
-                Log in as {r}
-              </button>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <>
-          {/* Dashboard */}
-          <div className="bg-white p-8 rounded-2xl shadow-lg max-w-3xl w-full mt-4">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold text-blue-700">
-                {role} Dashboard
-              </h2>
-              <button
-                onClick={() => setRole("")}
-                className="text-sm text-gray-500 hover:text-red-500"
-              >
-                Log out
-              </button>
-            </div>
-
-            {loading ? (
-              <p>Loading patients...</p>
-            ) : (
-              <>
-                {getVisiblePatients().length === 0 ? (
-                  <p className="text-gray-500">No patients found for your role.</p>
-                ) : (
-                  <ul className="grid md:grid-cols-2 gap-4">
-                    {getVisiblePatients().map((p, index) => (
-                      <li
-                        key={index}
-                        className="border border-blue-100 rounded-xl p-4 hover:shadow-md transition bg-blue-50"
-                      >
-                        <h3 className="font-semibold text-blue-800 text-lg">
-                          {Array.isArray(p.name)
-                            ? `${p.name[0]?.given?.[0] || ""} ${p.name[0]?.family || ""}`
-                            : `${p.name?.given?.[0] || ""} ${p.name?.family || ""}`}
-
-                        </h3>
-                        <p className="text-gray-600 text-sm">DOB: {p.birthDate}</p>
-                        <p className="text-gray-600 text-sm">ID: {p.id}</p>
-
-                        {role.includes("Provider") && (
-                          <button
-                            className="mt-3 text-sm bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition"
-                            onClick={async () => {
-                              try {
-                                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/share`, {
-                                  patientId: p.id,
-                                  fromProvider: role,
-                                  toProvider: role === "Provider A" ? "Provider B" : "Provider A",
-                                  apiKey: "supersecretkey123", // must match backend
-                                });
-                                alert(`✅ Record securely shared for patient ${p.id}`);
-                              } catch (err) {
-                                console.error(err);
-                                alert("❌ Failed to share record");
-                              }
-                            }}
-                          >
-                            Share Record ➜
-                          </button>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </>
-            )}
-          </div>
-        </>
-      )}
-    </main>
-  );
-}
+      {/* Story Section */}
+      <section id="story" className="py-24 bg-white px-8">
+        <h2 className="text-3xl font-semibold text-center text-blue-700 mb-12">
+          The Problem We're Solving
+        </h2>
+        <div className="max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6">
+          <p>
+            Every day, patients walk into new clinics, specialists, or hospitals — 
+            and their doctors can’t access their full medical history.
+          </p>
+          <p>
+            Why? Because healthcare data lives in silos. One system (Epic) doesn’t
+            easily talk to another (Cerner, Allscripts, or custom hospital EHRs).
+            So patients repeat tests. Doctors guess. And care suffers.
+          </p>
