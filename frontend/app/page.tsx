@@ -85,7 +85,10 @@ export default function Home() {
                         className="border border-blue-100 rounded-xl p-4 hover:shadow-md transition bg-blue-50"
                       >
                         <h3 className="font-semibold text-blue-800 text-lg">
-                          {p.name?.given?.[0]} {p.name?.family}
+                          {Array.isArray(p.name)
+                            ? `${p.name[0]?.given?.[0] || ""} ${p.name[0]?.family || ""}`
+                            : `${p.name?.given?.[0] || ""} ${p.name?.family || ""}`}
+
                         </h3>
                         <p className="text-gray-600 text-sm">DOB: {p.birthDate}</p>
                         <p className="text-gray-600 text-sm">ID: {p.id}</p>
