@@ -27,6 +27,13 @@ export default function Home() {
     <main className="min-h-screen bg-gray-50 text-gray-900">
       {/* Hero Section */}
       <section className="text-center py-24 px-6 bg-gradient-to-b from-blue-100 via-white to-gray-50">
+        <div className="flex justify-center mb-8">
+          <img 
+            src="/logo.png" 
+            alt="MyCareLinker Logo" 
+            className="h-16 w-auto" 
+          />
+        </div>
         <h1 className="text-5xl font-bold mb-6 text-blue-700">MyCareLinker</h1>
         <p className="text-xl max-w-2xl mx-auto leading-relaxed text-gray-700">
           Bridging the gap between healthcare providers. Securely. Seamlessly. 
@@ -39,6 +46,7 @@ export default function Home() {
           Learn How It Works ↓
         </a>
       </section>
+
 
       {/* Story Section */}
       <section id="story" className="py-24 bg-white px-8">
