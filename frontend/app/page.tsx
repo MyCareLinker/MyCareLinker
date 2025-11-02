@@ -96,9 +96,20 @@ export default function Home() {
                         {role.includes("Provider") && (
                           <button
                             className="mt-3 text-sm bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition"
-                            onClick={() =>
-                              alert(`Record securely shared for patient ${p.id}`)
-                            }
+                            onClick={async () => {
+                              try {
+                                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/share`, {
+                                  patientId: p.id,
+                                  fromProvider: role,
+                                  toProvider: role === "Provider A" ? "Provider B" : "Provider A",
+                                  apiKey: "supersecretkey123", // must match backend
+                                });
+                                alert(`✅ Record securely shared for patient ${p.id}`);
+                              } catch (err) {
+                                console.error(err);
+                                alert("❌ Failed to share record");
+                              }
+                            }}
                           >
                             Share Record ➜
                           </button>
