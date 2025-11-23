@@ -91,25 +91,25 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20 text-center max-w-5xl mx-auto">
+      <section id="how-it-works" className="py-20 text-center max-w-5xl mx-auto px-6">
         <h2 className="text-3xl font-semibold text-blue-700 mb-10">How It Works</h2>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-          <div className="flex flex-col items-center bg-blue-100 rounded-xl p-6 shadow-md w-48">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+          <div className="flex flex-col items-center justify-center bg-blue-100 rounded-xl p-6 shadow-md w-48 h-32">
             <span className="font-semibold text-blue-700">Clinic A</span>
             <span className="text-gray-600 text-sm mt-2 text-center">Patient data originates here</span>
           </div>
 
-          <div className="text-4xl text-gray-400 font-bold animate-pulse">→</div>
+          <div className="text-3xl md:text-4xl text-gray-400 font-bold animate-pulse flex items-center h-32">→</div>
 
-          <div className="flex flex-col items-center bg-blue-200 rounded-xl p-6 shadow-md w-48">
+          <div className="flex flex-col items-center justify-center bg-blue-200 rounded-xl p-6 shadow-md w-48 h-32">
             <span className="font-semibold text-blue-700">MyCareLinker</span>
             <span className="text-gray-600 text-sm mt-2 text-center">Normalizes & secures data, consent token applied</span>
           </div>
 
-          <div className="text-4xl text-gray-400 font-bold animate-pulse">→</div>
+          <div className="text-3xl md:text-4xl text-gray-400 font-bold animate-pulse flex items-center h-32">→</div>
 
-          <div className="flex flex-col items-center bg-blue-100 rounded-xl p-6 shadow-md w-48">
+          <div className="flex flex-col items-center justify-center bg-blue-100 rounded-xl p-6 shadow-md w-48 h-32">
             <span className="font-semibold text-blue-700">Clinic B</span>
             <span className="text-gray-600 text-sm mt-2 text-center">Receives & views patient data</span>
           </div>
@@ -120,7 +120,7 @@ export default function Home() {
         </p>
       </section>
 
-      <footer className="text-center py-12 text-sm text-gray-500">
+      <footer className="mt-auto text-center py-12 text-sm text-gray-500 max-w-6xl mx-auto px-6">
         © {new Date().getFullYear()} MyCareLinker. All rights reserved.
       </footer>
     </main>
