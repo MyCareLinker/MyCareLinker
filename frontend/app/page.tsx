@@ -24,28 +24,28 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-50 text-gray-900 px-6 md:px-12">
+    <main className="min-h-screen flex flex-col px-6 md:px-12">
       {/* Hero Section */}
-      <section className="text-center py-24">
-        <h1 className="text-5xl font-bold mb-6 text-blue-700">
+      <section className="text-center py-20 flex flex-col items-center justify-center">
+        <h1 className="text-5xl font-bold text-blue-700 mb-4">
           MyCareLinker
         </h1>
-        <p className="text-xl max-w-2xl mx-auto leading-relaxed text-gray-700 mb-4">
+        <p className="text-xl text-gray-700 max-w-2xl mb-2">
           A simple API to send and receive patient records between healthcare organizations.
         </p>
-        <p className="text-lg max-w-2xl mx-auto text-gray-600">
-          Built for IT teams. Secure, FHIR-compatible, and usage-based. Drop-in code samples included.
+        <p className="text-lg text-gray-600 max-w-2xl mb-6">
+          Built for IT teams. Secure, FHIR-compatible, usage-based, with drop-in code samples.
         </p>
-        <div className="mt-10 flex justify-center gap-4 flex-wrap">
+        <div className="flex gap-4 flex-wrap justify-center">
           <a
             href="#demo"
-            className="inline-block bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md hover:bg-blue-800 transition"
+            className="bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md hover:bg-blue-800 transition"
           >
             Try the Demo
           </a>
           <a
             href="/docs"
-            className="inline-block bg-white text-blue-700 px-6 py-3 rounded-xl shadow-md hover:bg-gray-200 transition"
+            className="bg-white text-blue-700 px-6 py-3 rounded-xl shadow-md hover:bg-gray-200 transition"
           >
             API Docs
           </a>
@@ -53,17 +53,19 @@ export default function Home() {
       </section>
 
       {/* Story Section */}
-      <section id="story" className="py-24 bg-white max-w-4xl mx-auto text-center">
+      <section id="story" className="py-20 text-center max-w-3xl mx-auto">
         <h2 className="text-3xl font-semibold text-blue-700 mb-6">
           Why MyCareLinker
         </h2>
         <p className="text-lg text-gray-700 leading-relaxed">
-          Healthcare IT teams spend hours transferring patient records manually — CDs, faxes, or giant PDFs. MyCareLinker provides a secure API layer so records flow seamlessly between organizations.
+          IT teams spend hours manually transferring patient records — CDs, faxes, giant PDFs. 
+          MyCareLinker provides a secure API layer so records flow seamlessly between organizations, 
+          auditable and HIPAA-compliant.
         </p>
       </section>
 
       {/* Demo Section */}
-      <section id="demo" className="py-24 bg-gray-100 max-w-6xl mx-auto">
+      <section id="demo" className="py-20 bg-gray-100">
         <h2 className="text-3xl font-semibold text-center text-blue-700 mb-12">
           Live Demo
         </h2>
@@ -73,7 +75,7 @@ export default function Home() {
         ) : patients.length === 0 ? (
           <p className="text-center text-gray-600">No patients found.</p>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto justify-center">
             {patients.map((p, index) => {
               const nameObj = Array.isArray(p.resource.name)
                 ? p.resource.name[0]
@@ -84,15 +86,15 @@ export default function Home() {
               return (
                 <div
                   key={index}
-                  className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition"
+                  className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition text-center"
                 >
-                  <h3 className="text-xl font-semibold text-blue-700 mb-1">
+                  <h3 className="text-xl font-semibold text-blue-700 mb-2">
                     {firstName} {lastName}
                   </h3>
-                  <p className="text-gray-600 mb-1">
+                  <p className="text-gray-600 mb-2">
                     <strong>DOB:</strong> {p.resource.birthDate}
                   </p>
-                  <p className="text-gray-600 mb-2">
+                  <p className="text-gray-600 mb-4">
                     <strong>ID:</strong> {p.resource.id}
                   </p>
                   <button className="w-full bg-blue-700 text-white py-2 rounded-xl hover:bg-blue-800 transition">
@@ -105,45 +107,46 @@ export default function Home() {
         )}
       </section>
 
-      {/* Architecture Section */}
-      <section className="py-24 max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-semibold text-blue-700 mb-6">
+      {/* How It Works Section */}
+      <section className="py-20 text-center max-w-5xl mx-auto">
+        <h2 className="text-3xl font-semibold text-blue-700 mb-10">
           How It Works
         </h2>
-        <p className="text-lg text-gray-700 leading-relaxed mb-8">
-          MyCareLinker sits between healthcare systems, normalizes FHIR data, and enables secure, auditable transfers. One provider initiates, the patient consents, and the receiving provider gets the data — fast and compliant.
-        </p>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-          <div className="flex flex-col items-center bg-blue-100 rounded-xl p-6 shadow-md w-40">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+          <div className="flex flex-col items-center bg-blue-100 rounded-xl p-6 shadow-md w-48">
             <span className="font-semibold text-blue-700">Clinic A</span>
             <span className="text-gray-600 text-sm mt-2 text-center">
-              Patient data originates
+              Patient data originates here
             </span>
           </div>
 
-          <div className="text-4xl text-gray-400 font-bold">→</div>
+          <div className="text-4xl text-gray-400 font-bold animate-pulse">→</div>
 
-          <div className="flex flex-col items-center bg-blue-200 rounded-xl p-6 shadow-md w-40">
+          <div className="flex flex-col items-center bg-blue-200 rounded-xl p-6 shadow-md w-48">
             <span className="font-semibold text-blue-700">MyCareLinker</span>
             <span className="text-gray-600 text-sm mt-2 text-center">
-              Secure transfer & audit
+              Normalizes & secures data, consent token applied
             </span>
           </div>
 
-          <div className="text-4xl text-gray-400 font-bold">→</div>
+          <div className="text-4xl text-gray-400 font-bold animate-pulse">→</div>
 
-          <div className="flex flex-col items-center bg-blue-100 rounded-xl p-6 shadow-md w-40">
+          <div className="flex flex-col items-center bg-blue-100 rounded-xl p-6 shadow-md w-48">
             <span className="font-semibold text-blue-700">Clinic B</span>
             <span className="text-gray-600 text-sm mt-2 text-center">
-              Data received
+              Receives & views patient data
             </span>
           </div>
         </div>
+
+        <p className="mt-12 text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
+          One provider initiates a share, patient consents, and the recipient receives data — encrypted, auditable, and FHIR-compliant.
+        </p>
       </section>
 
       {/* Footer */}
-      <footer className="text-center py-8 text-sm text-gray-500">
+      <footer className="text-center py-12 text-sm text-gray-500">
         © {new Date().getFullYear()} MyCareLinker. All rights reserved.
       </footer>
     </main>
