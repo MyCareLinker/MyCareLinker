@@ -36,17 +36,27 @@ export default function Home() {
         </div>
         <h1 className="text-5xl font-bold mb-6 text-blue-700">MyCareLinker</h1>
         <p className="text-xl max-w-2xl mx-auto leading-relaxed text-gray-700">
-          Bridging the gap between healthcare providers. Securely. Seamlessly. 
-          Think of it like <strong>Venmo — but for patient records.</strong>
+          A simple API to send and receive patient records between healthcare organizations.
+          No more CDs, faxing, or manual transfers.
         </p>
-        <a
-          href="#story"
-          className="mt-10 inline-block bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md hover:bg-blue-800 transition"
-        >
-          Learn How It Works ↓
-        </a>
+        <p className="text-lg mt-2 text-gray-600">
+          Built for IT teams — usage-based pricing. Drop-in code samples included.
+        </p>
+        <div className="mt-10 flex justify-center gap-4">
+          <a
+            href="#demo"
+            className="inline-block bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md hover:bg-blue-800 transition"
+          >
+            Try the Demo
+          </a>
+          <a
+            href="/docs"
+            className="inline-block bg-white text-blue-700 px-6 py-3 rounded-xl shadow-md hover:bg-gray-200 transition"
+          >
+            API Docs
+          </a>
+        </div>
       </section>
-
 
       {/* Story Section */}
       <section id="story" className="py-24 bg-white px-8">
@@ -55,26 +65,21 @@ export default function Home() {
         </h2>
         <div className="max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6">
           <p>
-            Every day, patients walk into new clinics, specialists, or hospitals — 
-            and their doctors can’t access their full medical history.
+            Every day, IT teams in healthcare struggle to move patient records between organizations.
           </p>
           <p>
-            Why? Because healthcare data lives in silos. One system (Epic) doesn’t
-            easily talk to another (Cerner, Allscripts, or custom hospital EHRs).
-            So patients repeat tests. Doctors guess. And care suffers.
+            The old methods—CDs, fax, giant PDFs, or custom integrations—are slow, insecure, and frustrating.
           </p>
           <p>
-            MyCareLinker fixes that by creating a simple, secure bridge — one that
-            lets verified healthcare providers <strong>exchange patient data 
-            in seconds</strong> using modern, interoperable standards like FHIR.
+            MyCareLinker is the API layer that solves this. It provides FHIR normalization, secure delivery, consent handling, and audit logs — so your team can focus on care, not plumbing.
           </p>
         </div>
       </section>
 
       {/* Demo Section */}
-      <section className="py-24 bg-gray-100 px-8">
+      <section id="demo" className="py-24 bg-gray-100 px-8">
         <h2 className="text-3xl font-semibold text-center text-blue-700 mb-12">
-          See How It Could Work
+          Live Demo
         </h2>
 
         {loading ? (
@@ -127,13 +132,11 @@ export default function Home() {
             Epic, Cerner, and AthenaHealth — without changing how they store or structure data.
           </p>
           <p>
-            It works like this: one provider initiates a share request, the patient consents,
-            and the data is securely transferred to another provider’s system. Think of it
-            as a digital “handoff” between doctors — encrypted, auditable, and HIPAA compliant.
+            One provider initiates a share request, the patient consents,
+            and the data is securely transferred to another provider’s system. Encrypted, auditable, HIPAA compliant.
           </p>
         </div>
 
-        {/* Minimalist Data Flow Diagram */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 max-w-4xl mx-auto">
           <div className="flex flex-col items-center bg-blue-100 rounded-xl p-6 shadow-md w-40 animate-fadeIn">
             <span className="font-semibold text-blue-700">Clinic A</span>

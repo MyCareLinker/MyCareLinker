@@ -13,20 +13,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MyCareLinker", // <- updated
-  description: "Connecting healthcare providers with patient-centered data exchange", // <- updated
+  title: "MyCareLinker | Secure Healthcare Data Exchange",
+  description: "A simple API to send and receive patient records between healthcare organizations",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>
