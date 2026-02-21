@@ -19,9 +19,9 @@ export default function ApiStatus() {
     setStatus("checking");
     const apiUrl = getApiBaseUrl();
     fetch(`${apiUrl}/`, { method: "GET" })
-      .then((res) => (res.ok ? "up" : "down"))
-      .catch(() => "down")
-      .then((s: "up" | "down") => {
+      .then((res) => (res.ok ? "up" : "down") as "up" | "down")
+      .catch(() => "down" as const)
+      .then((s) => {
         if (!cancelled) setStatus(s);
       });
     return () => { cancelled = true; };
