@@ -21,7 +21,7 @@ export default function ApiStatus() {
     fetch(`${apiUrl}/`, { method: "GET" })
       .then((res) => (res.ok ? "up" : "down"))
       .catch(() => "down")
-      .then((s) => {
+      .then((s: "up" | "down") => {
         if (!cancelled) setStatus(s);
       });
     return () => { cancelled = true; };
