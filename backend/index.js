@@ -17,17 +17,18 @@ const __dirname = path.dirname(__filename);
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-// Simple API key check middleware
+// Test route (no auth — for health checks)
+app.get("/", (req, res) => res.json({ ok: true, service: "MyCareLinker API" }));
+
+// API key check for all other routes
 app.use((req, res, next) => {
   const apiKey = req.headers["x-api-key"];
-  if (!apiKey || apiKey !== process.env.API_KEY) {
-    return res.status(401).json({ error: "Invalid API key" });
+  const validKey = process.env.API_KEY;
+  if (!validKey || !apiKey || apiKey !== validKey) {
+    return res.status(401).json({ error: "Invalid or missing API key" });
   }
   next();
 });
-
-// Test route
-app.get("/", (req, res) => res.send("MyCareLinker backend is running!"));
 
 // Get patients
 app.get("/patients", (req, res) => {
@@ -43,7 +44,7 @@ app.get("/patients", (req, res) => {
 
 // POST /v1/share-record
 app.post("/v1/share-record", (req, res) => {
-  const { patientId, destinationOrg, documents, consentToken } = req.body;
+  const { patientId, destinationOrg, documents, consentToken, studyType, dateRange } = req.body;
 
   if (!patientId || !destinationOrg || !documents || !consentToken) {
     return res.status(400).json({ error: "Missing required fields" });
@@ -51,7 +52,7 @@ app.post("/v1/share-record", (req, res) => {
 
   // Simulate storing the record and creating audit log
   const transactionId = uuidv4();
-  console.log(`[AUDIT] Transaction ${transactionId} | Patient: ${patientId} | Destination: ${destinationOrg}`);
+  console.log(`[AUDIT] Transaction ${transactionId} | Patient: ${patientId} | Destination: ${destinationOrg} | Study: ${studyType || "—"} | Range: ${dateRange || "—"}`);
 
   res.json({
     transactionId,

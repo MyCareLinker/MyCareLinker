@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MyCareLinker | Secure Healthcare Data Exchange",
-  description: "A simple API to send and receive patient records between healthcare organizations",
+  title: "MyCareLinker | API for Healthcare Record Exchange",
+  description: "A simple API to send and receive patient records between healthcare organizations. Developer infrastructure for IT teams.",
 };
 
 export default function RootLayout({

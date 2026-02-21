@@ -1,228 +1,258 @@
-import React from 'react';
-import { 
-  Terminal, 
-  ShieldCheck, 
-  Zap, 
-  Database, 
-  ChevronRight, 
-  ArrowRight, 
-  CheckCircle2,
-  Lock,
-  Workflow
-} from 'lucide-react';
+import Link from "next/link";
+import Nav from "./components/Nav";
 
-export default function App() {
+export default function HomePage() {
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center">
-                <Workflow className="text-white w-5 h-5" />
-              </div>
-              <span className="text-xl font-bold tracking-tight">
-                MyCare<span className="text-teal-600">Linker</span>
-              </span>
-            </div>
-            <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-              <a href="#features" className="hover:text-teal-600 transition">Features</a>
-              <a href="#api" className="hover:text-teal-600 transition">API Reference</a>
-              <a href="#pricing" className="hover:text-teal-600 transition">Pricing</a>
-              <button className="bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition shadow-sm">
-                Get API Key
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-slate-950 text-slate-50">
+      <Nav />
 
-      {/* Hero Section */}
-      <header className="relative pt-16 pb-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="inline-flex items-center space-x-2 bg-teal-50 border border-teal-100 px-3 py-1 rounded-full mb-6">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
-              </span>
-              <span className="text-xs font-bold text-teal-700 uppercase tracking-wider">Now in Public Sandbox</span>
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-6">
-              The Plaid for <span className="text-teal-600">Health Records.</span>
-            </h1>
-            <p className="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
-              Connect to any EHR, exchange FHIR bundles, and orchestrate imaging access with a single API. Built for developers by engineers who hate fax machines.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="flex items-center justify-center space-x-2 bg-teal-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-teal-700 transition shadow-lg shadow-teal-500/20">
-                <span>Start Integrating</span>
-                <ChevronRight className="w-5 h-5" />
-              </button>
-              <button className="flex items-center justify-center space-x-2 bg-white border border-slate-200 text-slate-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition">
-                View Documentation
-              </button>
-            </div>
+      {/* Hero — developer-first, radiology-aware */}
+      <header className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.22),transparent_55%),radial-gradient(circle_at_bottom,_rgba(56,189,248,0.2),transparent_55%)]" />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 relative">
+          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-400/40 px-3 py-1 text-xs font-medium text-emerald-100 mb-5 backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Phase 1 (POC): Radiology &amp; Cardiology
           </div>
-
-          {/* Terminal Mockup */}
-          <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-blue-500 rounded-2xl blur opacity-20"></div>
-            <div className="relative bg-slate-900 rounded-2xl shadow-2xl border border-slate-800 overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-900/50">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/40"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/40"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/40"></div>
-                </div>
-                <span className="text-xs text-slate-500 font-mono uppercase tracking-widest">POST /v1/share-record</span>
-              </div>
-              <div className="p-6 font-mono text-sm leading-relaxed">
-                <div className="flex">
-                  <span className="text-teal-400 mr-4">1</span>
-                  <span className="text-pink-400">curl</span>
-                  <span className="text-slate-300 ml-2">-X POST https://api.mycarelinker.com/v1/share</span>
-                </div>
-                <div className="flex">
-                  <span className="text-teal-400 mr-4">2</span>
-                  <span className="text-slate-400 ml-4">-H "Authorization: Bearer sk_prod_2025"</span>
-                </div>
-                <div className="flex">
-                  <span className="text-teal-400 mr-4">3</span>
-                  <span className="text-slate-400 ml-4">
-                    -d '{'{"patient_id": "MRN-99", "dest": "CENTRAL-HOSP"}'}'
-                  </span>
-                </div>
-                <div className="mt-4 text-slate-500 italic"># Response (202 OK)</div>
-                <div className="text-green-400">
-                  {`{`} <br />
-                  &nbsp;&nbsp;"transaction_id": "TX_88102", <br />
-                  &nbsp;&nbsp;"status": "DELIVERED", <br />
-                  &nbsp;&nbsp;"audit_url": "https://logs.mcl.io/..." <br />
-                  {`}`}
-                </div>
-              </div>
-            </div>
+          <h1 className="text-3xl sm:text-5xl font-semibold text-slate-50 leading-tight max-w-3xl">
+            A simple API to send and receive patient records between healthcare organizations.
+          </h1>
+          <p className="mt-4 text-lg text-slate-200/80 max-w-2xl">
+            Replace CDs, fax machines, and manual EPIC / Merge PACS workflows with a single, auditable API call.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Link
+              href="/#quickstart"
+              className="inline-flex items-center gap-2 bg-emerald-400 text-slate-950 px-5 py-2.5 rounded-lg font-semibold hover:bg-emerald-300 transition shadow-lg shadow-emerald-500/40"
+            >
+              Quickstart
+            </Link>
+            <Link
+              href="/docs"
+              className="inline-flex items-center gap-2 border border-slate-600/60 text-slate-100 px-5 py-2.5 rounded-lg font-medium hover:bg-slate-900/60 transition"
+            >
+              API Reference
+            </Link>
+            <Link
+              href="/demo"
+              className="inline-flex items-center gap-2 text-slate-200 hover:text-white font-medium transition"
+            >
+              See demo →
+            </Link>
+          </div>
+          <div className="mt-10 flex flex-wrap gap-3 text-xs text-slate-200/80">
+            <span className="inline-flex items-center gap-2 rounded-full bg-slate-900/70 border border-slate-700 px-3 py-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
+              Stop burning CDs for outside hospitals
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-slate-900/70 border border-slate-700 px-3 py-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-300" />
+              No more copy-paste from MS Forms into EPIC
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-slate-900/70 border border-slate-700 px-3 py-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-sky-300" />
+              Merge PACS exports with a single transaction_id
+            </span>
           </div>
         </div>
       </header>
 
-      {/* Features Grid */}
-      <section id="features" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Infrastructure for Connected Care</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">Skip the months of HL7 integration hell. We provide the stable abstraction layer you need to build faster.</p>
+      {/* Code example — POST /v1/share-record */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">
+          Send a record
+        </h2>
+        <div className="bg-slate-900 rounded-xl overflow-hidden border border-slate-800">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800">
+            <span className="text-xs text-slate-500 font-mono">POST /v1/share-record</span>
+            <span className="text-xs text-slate-500">Requires: x-api-key</span>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { 
-                icon: <Zap className="text-teal-500" />, 
-                title: "Unified FHIR Gateway", 
-                desc: "Send data to Epic, Cerner, or Athena using a single standardized FHIR R4 schema." 
-              },
-              { 
-                icon: <ShieldCheck className="text-blue-500" />, 
-                title: "HIPAA Compliant", 
-                desc: "Enterprise-grade encryption, BAA included, and cryptographically signed audit logs for every byte." 
-              },
-              { 
-                icon: <Database className="text-purple-500" />, 
-                title: "DICOM Orchestration", 
-                desc: "Don't move gigabytes. Generate secure WADO-RS pointers to stream imaging directly." 
-              }
-            ].map((feature, i) => (
-              <div key={i} className="p-8 rounded-2xl border border-slate-100 bg-slate-50/50 hover:shadow-xl hover:shadow-slate-200/50 transition duration-300">
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-slate-600 leading-relaxed">{feature.desc}</p>
-              </div>
-            ))}
+          <pre className="p-4 sm:p-6 text-sm font-mono text-slate-300 overflow-x-auto">
+            <code>{`curl -X POST https://api.mycarelinker.com/v1/share-record \\
+  -H "x-api-key: sk_live_..." \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "patientId": "MRN-12345",
+    "destinationOrg": "org_central_hospital",
+    "payload": { "resourceType": "Bundle", "type": "document", ... },
+    "consentToken": "consent_abc..."
+  }'`}</code>
+          </pre>
+          <div className="px-4 sm:px-6 py-3 border-t border-slate-800 bg-slate-800/50">
+            <span className="text-xs text-slate-500">Response</span>
+            <pre className="mt-1 text-sm font-mono text-emerald-400">
+              {`{ "transaction_id": "tx_...", "delivery_status": "accepted", "audit_log": "https://..." }`}
+            </pre>
           </div>
         </div>
       </section>
 
-      {/* The Pricing Model */}
-      <section id="pricing" className="py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
-            <div className="p-8 md:p-12 text-center">
-              <span className="text-teal-600 font-bold uppercase tracking-widest text-sm">Simple Pricing</span>
-              <h2 className="text-4xl font-extrabold mt-4 mb-6">Developer First. Period.</h2>
-              <div className="flex justify-center items-baseline mb-8">
-                <span className="text-6xl font-black">$0.01</span>
-                <span className="text-slate-500 ml-2">/ successful record sync</span>
-              </div>
-              <p className="text-slate-600 mb-8">First 1,000 requests per month are on us. No contracts, no implementation fees, no enterprise sales circus.</p>
-              <div className="grid grid-cols-2 gap-4 text-left max-w-md mx-auto mb-10">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="text-teal-500 w-5 h-5" />
-                  <span className="text-sm text-slate-700">Sandbox Access</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="text-teal-500 w-5 h-5" />
-                  <span className="text-sm text-slate-700">99.9% Uptime SLA</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="text-teal-500 w-5 h-5" />
-                  <span className="text-sm text-slate-700">Usage Logs</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="text-teal-500 w-5 h-5" />
-                  <span className="text-sm text-slate-700">Webhooks</span>
-                </div>
-              </div>
-              <button className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-xl hover:bg-slate-800 transition">
-                Create Account
-              </button>
+      {/* Endpoints */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 className="text-xl font-bold text-slate-50 mb-6">API routes</h2>
+        <ul className="space-y-3 font-mono text-sm text-slate-100/90">
+          <li className="flex items-center gap-3">
+            <span className="text-emerald-600 font-semibold">POST</span>
+            <span>/v1/share-record</span>
+            <span className="text-slate-500">— Send record to destination org</span>
+          </li>
+          <li className="flex items-center gap-3">
+            <span className="text-blue-500 font-semibold">GET</span>
+            <span>/v1/record/:id</span>
+            <span className="text-slate-500">— Retrieve record by id</span>
+          </li>
+          <li className="flex items-center gap-3">
+            <span className="text-emerald-600 font-semibold">POST</span>
+            <span>/v1/consent</span>
+            <span className="text-slate-500">— Create or update consent</span>
+          </li>
+          <li className="flex items-center gap-3">
+            <span className="text-blue-500 font-semibold">GET</span>
+            <span>/v1/audit/:transactionId</span>
+            <span className="text-slate-500">— Audit log for a transaction</span>
+          </li>
+        </ul>
+      </section>
+
+      {/* Use cases */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-800/60">
+        <h2 className="text-xl font-bold text-slate-50 mb-2">Use cases</h2>
+        <p className="text-sm text-slate-300/80 mb-6">
+          You keep your workflows in EPIC, Merge PACS, and your local tools. We handle the plumbing between organizations.
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            "Referrals: send chart from PCP to specialist",
+            "Telehealth: pull records into visit",
+            "Imaging: share studies between radiology and clinic",
+            "Discharge: push summary to follow-up care",
+            "Patient access: fulfill record requests via API",
+            "Health info exchange: one integration, many endpoints",
+          ].map((useCase, i) => (
+            <div key={i} className="p-4 rounded-lg bg-slate-900/70 border border-slate-700 text-slate-100 shadow-sm shadow-black/30">
+              {useCase}
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Product concept */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-800/60">
+        <h2 className="text-xl font-bold text-slate-50 mb-2">How MyCareLinker works</h2>
+        <p className="text-slate-300/80 mb-8">
+          Public request form → automation when criteria match → tech dashboard for exceptions → IT controls access. When both clinics are customers, they talk faster.
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { title: "Public request form", desc: "Other clinics request records via a secure page (no MS Forms). Org-registered, rate-limited, anti-spam." },
+            { title: "Automation engine", desc: "If request matches criteria (consent, patient match, study type, date range), we process it automatically via EPIC + PACS API." },
+            { title: "Tech dashboard", desc: "When automation fails or for on-demand sends, techs log in, see the queue, fix, and send. Full audit trail." },
+            { title: "IT admin", desc: "Add techs, manage orgs, view failures and processing metrics. Control who can do what." },
+          ].map((item, i) => (
+            <div key={i} className="p-4 rounded-xl bg-slate-900/70 border border-slate-700">
+              <h3 className="font-semibold text-emerald-200 mb-2">{item.title}</h3>
+              <p className="text-sm text-slate-300/90">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-400/30">
+          <h3 className="font-semibold text-emerald-200 mb-2">Network benefit</h3>
+          <p className="text-sm text-slate-200/90">
+            When both the requesting clinic and your hospital are MyCareLinker customers, requests can be fulfilled faster — direct API handoff, less manual work, lower cost.
+          </p>
+        </div>
+      </section>
+
+      {/* Radiology + cardiology import / export */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-800/60">
+        <h2 className="text-xl font-bold text-slate-50 mb-4">Built for radiology import / export teams</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="rounded-2xl border border-rose-400/40 bg-rose-500/5 p-5">
+            <h3 className="text-sm font-semibold text-rose-200 mb-2">Today</h3>
+            <ul className="text-sm text-rose-100/90 space-y-2">
+              <li>• Public MS Forms fill up with outside hospital requests</li>
+              <li>• Techs copy name / DOB / study type into EPIC to validate</li>
+              <li>• Manually open Merge PACS, find the right series, choose destination, click “send”</li>
+              <li>• Jump back to EPIC to document what was shared for audit</li>
+              <li>• Reverse all of this again for imports from CDs or secure emails</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-emerald-400/40 bg-emerald-500/5 p-5">
+            <h3 className="text-sm font-semibold text-emerald-200 mb-2">With MyCareLinker</h3>
+            <ul className="text-sm text-emerald-100/90 space-y-2">
+              <li>• A secure request form feeds straight into your API</li>
+              <li>• You validate consent once and store a consent token</li>
+              <li>• A single <code className="font-mono bg-emerald-900/40 px-1 rounded">transaction_id</code> represents the export</li>
+              <li>• EPIC and Merge PACS stay your system of record; we handle cross-org delivery</li>
+              <li>• Every step has an <code className="font-mono bg-emerald-900/40 px-1 rounded">audit_log</code> entry for compliance</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* Footer / CTA */}
-      <footer className="bg-slate-900 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-2">
-              <div className="flex items-center space-x-2 mb-6">
-                <Workflow className="text-teal-500 w-6 h-6" />
-                <span className="text-2xl font-bold tracking-tight">
-                  MyCare<span className="text-teal-500">Linker</span>
-                </span>
-              </div>
-              <p className="text-slate-400 max-w-sm">
-                Simplifying the messy world of healthcare data exchange with a single, reliable API.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 uppercase tracking-widest text-xs text-slate-500">Product</h4>
-              <ul className="space-y-2 text-slate-400">
-                <li><a href="#" className="hover:text-white transition">Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition">API Status</a></li>
-                <li><a href="#" className="hover:text-white transition">Changelog</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 uppercase tracking-widest text-xs text-slate-500">Legal</h4>
-              <ul className="space-y-2 text-slate-400">
-                <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition">Security (BAA)</a></li>
-                <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
-              </ul>
+      {/* Trust */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-800/60">
+        <h2 className="text-xl font-bold text-slate-50 mb-6">Built for healthcare IT</h2>
+        <div className="flex flex-wrap gap-6 text-slate-200/90 text-sm">
+          <span className="font-medium">HIPAA-aligned</span>
+          <span className="font-medium">BAA available</span>
+          <span className="font-medium">FHIR R4</span>
+          <span className="font-medium">Cryptographic audit logs</span>
+          <span className="font-medium">No lock-in</span>
+        </div>
+      </section>
+
+      {/* Quickstart */}
+      <section id="quickstart" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-800/60">
+        <h2 className="text-xl font-bold text-slate-50 mb-4">Quickstart</h2>
+        <ol className="list-decimal list-inside space-y-2 text-slate-200/90">
+          <li>Create an account and get your API key from the dashboard.</li>
+          <li>Call <code className="font-mono text-sm bg-slate-200 px-1 rounded">POST /v1/share-record</code> with patient id, destination org, payload, and consent token.</li>
+          <li>Use the returned <code className="font-mono text-sm bg-slate-200 px-1 rounded">transaction_id</code> and <code className="font-mono text-sm bg-slate-200 px-1 rounded">audit_log</code> for tracking.</li>
+        </ol>
+        <div className="mt-6">
+          <Link
+            href="/demo"
+            className="text-emerald-600 font-medium hover:underline"
+          >
+            See the concept in action on the Demo page →
+          </Link>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-800/60">
+        <h2 className="text-xl font-bold text-slate-50 mb-6">Pricing</h2>
+        <p className="text-slate-300 mb-6">
+          Pay-as-you-go only. No contracts. Admin portal included by default.
+        </p>
+        <div className="max-w-xl p-6 rounded-xl bg-slate-900/80 border border-slate-700">
+          <h3 className="font-bold text-slate-50">Pay as you go</h3>
+          <p className="mt-2 text-2xl font-bold text-slate-50">First 1,000 API calls free</p>
+          <p className="mt-1 text-slate-300">Then $0.005 per call</p>
+          <p className="mt-4 text-sm text-slate-400">
+            Default access to admin portal: API keys, usage logs, transaction history, tech management. No separate team fee.
+          </p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-slate-800 bg-slate-950/95 mt-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-wrap justify-between items-center gap-4">
+            <span className="font-semibold text-slate-50">
+              MyCare<span className="text-emerald-400">Linker</span>
+            </span>
+            <div className="flex gap-6 text-sm text-slate-400">
+              <Link href="/docs" className="hover:text-slate-100">Docs</Link>
+              <Link href="/demo" className="hover:text-slate-100">Demo</Link>
+              <a href="#" className="hover:text-slate-100">Status</a>
+              <a href="#" className="hover:text-slate-100">Privacy</a>
             </div>
           </div>
-          <div className="pt-8 border-t border-slate-800 flex justify-between items-center text-slate-500 text-sm">
-            <p>© 2025 MyCareLinker Inc.</p>
-            <div className="flex space-x-6">
-              <a href="#" className="hover:text-white">Twitter</a>
-              <a href="#" className="hover:text-white">LinkedIn</a>
-              <a href="#" className="hover:text-white">GitHub</a>
-            </div>
-          </div>
+          <p className="mt-4 text-sm text-slate-500">
+            © {new Date().getFullYear()} MyCareLinker. Developer infrastructure for healthcare record exchange.
+          </p>
         </div>
       </footer>
     </div>
